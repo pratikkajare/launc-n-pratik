@@ -13,7 +13,7 @@ export const getCurrentUserByContext = (
   return req.user;
 };
 
-export const CurrentUser = createParamDecorator(
+export const currentUser = createParamDecorator(
   (
     data: keyof JwtPayloadWithRefreshToken | undefined,
     context: ExecutionContext

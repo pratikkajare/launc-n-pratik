@@ -10,5 +10,5 @@
     "declaration": true,
     "outDir": "./dist"
   },
-  "include": ["src/**/*.ts", "src/services/utility-function.service.ts"]
+  "include": ["src/**/*"]
 }
