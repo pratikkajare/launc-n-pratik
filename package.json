@@ -1,0 +1,19 @@
+{
+  "name": "lauch-pac-pratik",
+  "version": "1.0.16",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build"
+  },
+  "author": "pratik",
+  "license": "ISC",
+  "peerDependencies": {
+    "@nestjs/common": "^9.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.5.4",
+    "@nestjs/common": "^9.0.0"
+  }
+}
