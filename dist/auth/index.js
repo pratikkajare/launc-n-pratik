@@ -14,7 +14,5 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(require("./guards/access-token.guard"), exports);
-__exportStar(require("./guards/refresh-token.guard"), exports);
-__exportStar(require("./guards/roles.guard"), exports);
-__exportStar(require("./strategies/access-token.strategy"), exports);
+__exportStar(require("./guards"), exports);
+__exportStar(require("./strategies"), exports);
