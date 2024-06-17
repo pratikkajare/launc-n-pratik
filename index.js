@@ -1,9 +1,9 @@
 module.exports = {
-  ...require("./dist/src/decorators"),
-  ...require("./dist/src/enums"),
-  ...require("./dist/src/interfaces"),
-  ...require("./dist/src/services"),
-  ...require("./dist/src/types"),
-  ...require("./dist/src/auth"),
-  ...require("./dist/src/constants"),
+  ...require("./src/decorators"),
+  ...require("./src/enums"),
+  ...require("./src/interfaces"),
+  ...require("./src/services"),
+  ...require("./src/types"),
+  ...require("./src/auth"),
+  ...require("./src/constants"),
 };
