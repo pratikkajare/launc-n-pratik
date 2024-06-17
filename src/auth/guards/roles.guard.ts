@@ -1,4 +1,3 @@
-import { UserType } from "@app/common/enums/user-type.enum";
 import {
   CanActivate,
   ExecutionContext,
@@ -8,6 +7,7 @@ import {
 import { ConfigService } from "@nestjs/config";
 import { Reflector } from "@nestjs/core";
 import axios from "axios";
+import { UserType } from "../../enums";
 
 @Injectable()
 export class RolesGuard implements CanActivate {

@@ -1,19 +1,18 @@
-import { loggingEventType } from '@app/common/enums/screen-message.enum';
-import { UserType } from '@app/common/enums/user-type.enum';
-import { JwtPayload } from '@app/common/types/jwt-payload.type';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { PassportStrategy } from '@nestjs/passport';
-import axios from 'axios';
-import { Request } from 'express';
-import { ExtractJwt, Strategy } from 'passport-jwt';
+import { Injectable, UnauthorizedException } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
+import { PassportStrategy } from "@nestjs/passport";
+import axios from "axios";
+import { Request } from "express";
+import { ExtractJwt, Strategy } from "passport-jwt";
+import { ScreenMessageType, UserType } from "../../enums";
+import { JwtPayload } from "../../types";
 
 @Injectable()
-export class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt') {
+export class AccessTokenStrategy extends PassportStrategy(Strategy, "jwt") {
   constructor(private readonly configService: ConfigService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: configService.get('ACCESS_TOKEN_SECRET'),
+      secretOrKey: configService.get("ACCESS_TOKEN_SECRET"),
       passReqToCallback: true,
     });
   }
@@ -21,12 +20,12 @@ export class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt') {
   async getLoggingEvent(
     userId: string,
     userType: UserType,
-    type: loggingEventType,
+    type: ScreenMessageType
   ): Promise<string> {
     const response = await axios.get(
       `${this.configService.getOrThrow(
-        'AUTH_SERVICE',
-      )}/loggingevent/accessTokens?userId=${userId}&userType=${userType}&type=${type}`,
+        "AUTH_SERVICE"
+      )}/loggingevent/accessTokens?userId=${userId}&userType=${userType}&type=${type}`
     );
 
     return response.data;
@@ -34,7 +33,7 @@ export class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt') {
 
   async validate(req: Request, payload: JwtPayload): Promise<JwtPayload> {
     if (
-      req?.url === '/auth/setPassword' &&
+      req?.url === "/auth/setPassword" &&
       req?.body?.mobileNo &&
       req?.body?.mobileNo !== payload?.mobileNo
     ) {
@@ -43,13 +42,13 @@ export class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt') {
     const accessToken = await this.getLoggingEvent(
       payload.userId,
       payload.userType,
-      req?.url === '/auth/setPassword'
-        ? loggingEventType.SET_PASSWORD
-        : loggingEventType.LOGIN,
+      req?.url === "/auth/setPassword"
+        ? ScreenMessageType.SET_PASSWORD
+        : ScreenMessageType.LOGIN
     );
     if (
       accessToken &&
-      accessToken === req.headers?.authorization?.replace('Bearer ', '')
+      accessToken === req.headers?.authorization?.replace("Bearer ", "")
     ) {
       return Promise.resolve(payload);
     }
